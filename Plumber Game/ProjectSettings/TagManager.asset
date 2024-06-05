@@ -7,6 +7,11 @@ TagManager:
   - P
   - Connected
   - Disconnected
+  - EntryPoint
+  - ExitPoint
+  - ExitPipe
+  - Pipe
+  - PP
   layers:
   - Default
   - TransparentFX
@@ -14,11 +19,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Pre
-  - 
-  - 
-  - 
-  - 
+  - Place the pipe
+  - PIpe
+  - EntryPoint
+  - ExitPoint
+  - ExitPipe
   - 
   - 
   - 

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5945558675955582095}
   - component: {fileID: 5373850554022458179}
-  m_Layer: 0
-  m_Name: Collider_1
-  m_TagString: Untagged
+  m_Layer: 9
+  m_Name: Collider_End
+  m_TagString: ExitPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2176642413468643813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.342, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,9 +87,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8843240045062084908}
   - component: {fileID: 1691189277581920337}
-  m_Layer: 0
-  m_Name: Collider_3
-  m_TagString: Untagged
+  m_Layer: 8
+  m_Name: Collider_Start
+  m_TagString: EntryPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 6097264900270979270}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalPosition: {x: -0.321, y: 0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -163,9 +163,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7760758649143203208}
-  m_Layer: 0
+  - component: {fileID: 6843791300242324640}
+  - component: {fileID: 3249581793175962769}
+  - component: {fileID: 873485336700136534}
+  m_Layer: 7
   m_Name: Pipe_4
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +193,98 @@ Transform:
   - {fileID: 6029099375553036168}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6843791300242324640
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760758649143203209}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &3249581793175962769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760758649143203209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85116669d42dab4448310c3a16dc68f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destinationTag: P
+  placinglayer:
+    serializedVersion: 2
+    m_Bits: 64
+  pipeLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  isPlaced: 0
+  EmptyPipe: {fileID: 7760758650196803486}
+  filledPipe: {fileID: 7760758651086189149}
+  BackGRoundSpirte: {fileID: 531240163894327564}
+--- !u!114 &873485336700136534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760758649143203209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4db00deb8354424ab2addef37afdad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasWater: 0
+  points:
+  - pointTransform: {fileID: 8843240045062084908}
+    rayDirection: {x: -1, y: 0}
+  isConnected: 0
+  isEndPipe: 0
+  isStartPipe: 0
+  connectableTag: ExitPoint
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  waterFill: {fileID: 7760758651086189147}
 --- !u!1 &7760758650196803484
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7760758650196803487}
   - component: {fileID: 7760758650196803486}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PipeEmpty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +357,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 381a83495cce76f49b2bccdffa6a2f2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -284,13 +379,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7760758651086189146}
   - component: {fileID: 7760758651086189149}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PipeFilled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7760758651086189146
 Transform:
   m_ObjectHideFlags: 0
@@ -346,7 +441,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 68941be76b70fae4d8e4a9c8456cb54d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -368,7 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6029099375553036168}
   - component: {fileID: 531240163894327564}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tileGrey_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +525,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f3f24263d3cc0914ebbcb2fc1dc685fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

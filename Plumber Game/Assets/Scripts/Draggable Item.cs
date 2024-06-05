@@ -6,15 +6,21 @@ public class DraggableItem : MonoBehaviour
 {
     Vector3 offset;
     Collider2D collider2d;
-    public string destinationTag = "P";  // Tag for valid drop destinations
+    public string destinationTag = "P"; // Tag for valid drop destinations
     Vector3 lastpos;
-    PipelinePiece pipelinePiece;
-    public GameObject connectionIndicator;  // Assign this in the Inspector
+   // PipelinePiece pipelinePiece; // You can uncomment this if needed
+   [SerializeField] LayerMask placinglayer;
+    [SerializeField] LayerMask pipeLayer;
+    public bool isPlaced = true;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
+[SerializeField ]   SpriteRenderer EmptyPipe;
+ [SerializeField]   SpriteRenderer filledPipe;
+[SerializeField]    SpriteRenderer BackGRoundSpirte;
+    Collider2D col;
     void Awake()
     {
         collider2d = GetComponent<Collider2D>();
-        pipelinePiece = GetComponent<PipelinePiece>();
+      //   pipelinePiece = GetComponent<PipelinePiece>();
     }
 
     private void Start()
@@ -25,65 +31,78 @@ public class DraggableItem : MonoBehaviour
 
     void OnMouseDown()
     {
-        lastpos = transform.position;
-        offset = transform.position - MouseWorldPosition();
+        if (!GameManager.Instance.canPlay) return;
+        
+            lastpos = transform.position;
+            offset = transform.position - MouseWorldPosition();
+        
+      
     }
 
     void OnMouseDrag()
     {
+        if (!GameManager.Instance.canPlay) return;
+        // pipelinePiece.ReliseWater();
+        IncreaseSortingLayers(true);
+       isPlaced=false;
         transform.position = MouseWorldPosition() + offset;
     }
-
-    void OnMouseUp()
+    void IncreaseSortingLayers(bool m)
     {
-        collider2d.enabled = false;
-
-        // Raycasting from mouse position to detect objects
-        RaycastHit2D hitInfo = Physics2D.Raycast(MouseWorldPosition(), Vector2.zero);
-
-        if (hitInfo.collider != null && hitInfo.collider.tag == destinationTag)
+     
+        if (m)
         {
-            Transform destinationTransform = hitInfo.transform;
-
-            // Always move to the destination position
-            transform.position = destinationTransform.position + new Vector3(0, 0, -0.01f);
-
-            // Check for valid connections and enable the indicator if connections are valid
-            if (CheckValidConnections(destinationTransform))
-            {
-                if (connectionIndicator != null)
-                {
-                    connectionIndicator.SetActive(true);
-                }
-            }
+            EmptyPipe.sortingOrder = 7;
+            filledPipe.sortingOrder = 8;
+            BackGRoundSpirte.sortingOrder = 6;
         }
         else
         {
-            // If dropped on a non-destination tag or empty space, return to last position
-            transform.position = lastpos;
+            EmptyPipe.sortingOrder = 4;
+            filledPipe.sortingOrder = 5;
+            BackGRoundSpirte.sortingOrder = 3;
+        }
+       
+    }
+    void OnMouseUp()
+    {
+        if (!GameManager.Instance.canPlay) return;
+        collider2d.enabled = false;
+
+      
+        RaycastHit2D hitInfoPipe = Physics2D.Raycast(MouseWorldPosition(), Vector2.zero, Mathf.Infinity, pipeLayer);
+
+        if (hitInfoPipe.collider != null)
+        {
+          
+            Vector3 otherPipeLastPos = hitInfoPipe.transform.position;
+            hitInfoPipe.transform.position = lastpos;
+            transform.position = otherPipeLastPos;
+        }
+        else
+        {
+            
+            RaycastHit2D hitInfoPlacingLayer = Physics2D.Raycast(MouseWorldPosition(), Vector2.zero, Mathf.Infinity, placinglayer);
+
+            if (hitInfoPlacingLayer.collider != null && hitInfoPlacingLayer.collider.tag == destinationTag)
+            {
+                Transform destinationTransform = hitInfoPlacingLayer.transform;
+
+               
+                transform.position = destinationTransform.position + new Vector3(0, 0, -0.01f);
+
+            }
+            else
+            {
+               
+                transform.position = lastpos;
+            }
         }
 
         collider2d.enabled = true;
-    }
-
-    bool CheckValidConnections(Transform destinationTransform)
-    {
-        PipelinePiece destinationPiece = destinationTransform.GetComponent<PipelinePiece>();
-
-        if (pipelinePiece != null && destinationPiece != null)
-        {
-            foreach (Transform connectionPoint in pipelinePiece.connectionPoints)
-            {
-                foreach (Transform destConnectionPoint in destinationPiece.connectionPoints)
-                {
-                    if (Vector3.Distance(connectionPoint.position, destConnectionPoint.position) < 0.1f)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        isPlaced = true;
+        IncreaseSortingLayers(false);
+        // pipelinePiece.CheckConnections(); //  bug, so it remains commented out
     }
 
     Vector3 MouseWorldPosition()
